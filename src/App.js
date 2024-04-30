@@ -8,8 +8,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BtnFormulario from './Componentes/btnFormulario/btnFormulario';
+import { useSelector } from 'react-redux';
+
 
 function App() {
+
+  const goals = useSelector((state)=>state.goals.value)
+
   return (
     <div className="App">
       <Menu></Menu>
@@ -24,10 +29,11 @@ function App() {
             </Row>
             <Row>
               <div className='crolling'>
-                <Item></Item>
-                <Item></Item>
-                <Item></Item>
-                <Item></Item>
+                {
+                  goals.map((task,index)=>(
+                    <Item key={index} name={task.name} description={task.description} dueDate={task.dueDate}/>
+                  ))
+                }
               </div>
             </Row>
           </Col>

@@ -3,17 +3,17 @@ import Card from 'react-bootstrap/Card';
 import './Item.scss'
 import CardText from 'react-bootstrap/esm/CardText';
 
-function Item() {
+function Item(props) {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
-        <Card.Title>Nombre</Card.Title>
-        <Card.Text>Lavar mi Carro</Card.Text>
-        <Card.Text>Descripcion</Card.Text>
+        <Card.Title>{props.name}</Card.Title>
+        <Card.Text>{props.description}</Card.Text>
         <Card.Text>
-          Lavar el carro para salir a dar un paseo.
+          {props.dueDate}
         </Card.Text>
-        <Button variant="primary" className='float-left'>Go somewhere</Button>
+        <Button variant="primary" className='float-left'>Editar</Button>
+        <Button variant="primary" className='float-left'>Eliminar</Button>
       </Card.Body>
     </Card>
   );
