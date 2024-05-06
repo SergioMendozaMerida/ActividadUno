@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Item from './Componentes/Item/Item';
@@ -10,11 +10,11 @@ import Col from 'react-bootstrap/Col';
 import BtnFormulario from './Componentes/btnFormulario/btnFormulario';
 import { useSelector } from 'react-redux';
 
-
 function App() {
 
   const goals = useSelector((state)=>state.goals.value)
-
+  const todo = useSelector((state)=>state.todo.value)
+  const optionValue = useSelector(state => state.option.value)
   return (
     <div className="App">
       <Menu></Menu>
@@ -29,8 +29,15 @@ function App() {
             </Row>
             <Row>
               <div className='crolling'>
-                {
+                { 
+                  optionValue==='goals' &&
                   goals.map((task,index)=>(
+                    <Item key={index} id={task.id} name={task.name} description={task.description} dueDate={task.dueDate}/>
+                  ))
+                }
+                {
+                  optionValue==='todos' &&
+                  todo.map((task,index)=>(
                     <Item key={index} name={task.name} description={task.description} dueDate={task.dueDate}/>
                   ))
                 }

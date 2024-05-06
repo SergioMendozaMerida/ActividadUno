@@ -2,12 +2,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Formulario.scss'
 import { useDispatch } from 'react-redux';
+import { addTodo } from '../../reducers/todoSlice';
 import { addGoal } from '../../reducers/goalsSlice';
 import { useRef } from 'react';
-
+import { useSelector } from 'react-redux';
 
 function Formulario(props) {
 
+  const goalValue = useSelector(state => state.goals.value)
+  const optionValue = useSelector(state => state.option.value);
+  const idAsignada = goalValue.length + 1;
   const inputRefName = useRef();
   const inputRefDescription = useRef();
   const inputRefDueDate = useRef();
@@ -16,7 +20,12 @@ function Formulario(props) {
 
   const addItem = (e) =>{
     e.preventDefault();
-    dispatch(addGoal({'name':inputRefName.current.value, 'description':inputRefDescription.current.value, 'dueDate':inputRefDueDate.current.value}));
+    
+    if (optionValue === 'goals') {
+      dispatch(addGoal({'id':idAsignada,'name':inputRefName.current.value, 'description':inputRefDescription.current.value, 'dueDate':inputRefDueDate.current.value}));
+    }else if (optionValue === 'todos') {
+      dispatch(addTodo({'name':inputRefName.current.value, 'description':inputRefDescription.current.value, 'dueDate':inputRefDueDate.current.value}));
+    }
   }
 
   return (

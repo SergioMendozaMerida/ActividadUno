@@ -2,8 +2,20 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './Item.scss'
 import CardText from 'react-bootstrap/esm/CardText';
+import { useDispatch } from 'react-redux';
+import {deleteGoal} from '../../reducers/goalsSlice';
+
 
 function Item(props) {
+
+  const dispatch = useDispatch();
+
+  const deleteItem = (e) =>{
+    e.preventDefault();
+    dispatch(deleteGoal(props.id));
+  }
+
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
@@ -13,7 +25,7 @@ function Item(props) {
           {props.dueDate}
         </Card.Text>
         <Button variant="primary" className='float-left'>Editar</Button>
-        <Button variant="primary" className='float-left'>Eliminar</Button>
+        <Button variant="primary" className='float-left' onClick={deleteItem}>Eliminar</Button>
       </Card.Body>
     </Card>
   );
