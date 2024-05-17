@@ -9,12 +9,56 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BtnFormulario from './Componentes/btnFormulario/btnFormulario';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { initAddTodo } from './reducers/todoSlice';
+import { useDispatch } from 'react-redux';
+import { initAddGoal } from './reducers/goalsSlice';
 
 function App() {
 
   const goals = useSelector((state)=>state.goals.value)
   const todo = useSelector((state)=>state.todo.value)
   const optionValue = useSelector(state => state.option.value)
+  const dispatch = useDispatch();
+
+function initFetch(){
+  fetch("http://localhost:3001/tasks/getTasks",{
+    method:"GET",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"123456"
+    }
+  }).then((response) =>
+    response.json()
+  ).then((response)=>{
+    response.map((task)=>{
+      dispatch(initAddTodo(task));
+    })
+  }).catch(err=>{
+      console.log(err)
+  })
+
+  fetch("http://localhost:3001/goals/getGoals",{
+    method:"GET",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"123456"
+    }
+  }).then((response) =>
+    response.json()
+  ).then((response)=>{
+    response.map((goals)=>{
+      dispatch(initAddGoal(goals));
+    })
+  }).catch(err=>{
+      console.log(err)
+  })
+
+}
+useEffect(()=>{
+  initFetch();
+},[])
+
   return (
     <div className="App">
       <Menu></Menu>
@@ -38,7 +82,7 @@ function App() {
                 {
                   optionValue==='todos' &&
                   todo.map((task,index)=>(
-                    <Item key={index} name={task.name} description={task.description} dueDate={task.dueDate}/>
+                    <Item key={index} id={task.id} name={task.name} description={task.description} dueDate={task.dueDate}/>
                   ))
                 }
               </div>

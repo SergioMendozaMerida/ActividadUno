@@ -3,16 +3,27 @@ import Card from 'react-bootstrap/Card';
 import './Item.scss'
 import CardText from 'react-bootstrap/esm/CardText';
 import { useDispatch } from 'react-redux';
-import {deleteGoal} from '../../reducers/goalsSlice';
+import { useSelector } from 'react-redux';
+import { removeTodo } from '../../reducers/todoSlice';
+import { removeGoal } from '../../reducers/goalsSlice';
+
 
 
 function Item(props) {
 
+  const goals = useSelector((state)=>state.goals.value)
+  const todo = useSelector((state)=>state.todo.value)
+  const optionValue = useSelector(state => state.option.value)
   const dispatch = useDispatch();
 
   const deleteItem = (e) =>{
     e.preventDefault();
-    dispatch(deleteGoal(props.id));
+
+    if (optionValue === 'goals') {
+      dispatch(removeGoal(props.id));
+    }else if (optionValue === 'todos') {
+      dispatch(removeTodo(props.id));
+    }
   }
 
 

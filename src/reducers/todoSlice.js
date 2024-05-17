@@ -5,6 +5,7 @@ export const todoSlice = createSlice({
     initialState:{
         value:[
             {
+                'id':1,
                 'name':'Tarea 1',
                 'description':'Realizar la tarea 1',
                 'dueDate':'24-4-24'
@@ -12,11 +13,36 @@ export const todoSlice = createSlice({
         ]
     },
     reducers:{
-        addTodo:(state,action) => {
+        addTodo: (state, action) => {
             state.value.push(action.payload)
+            fetch("http://localhost:3001/tasks/addTask",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json",
+                    "Authorization":"123456"
+                },
+                body: JSON.stringify(action.payload)
+            }).catch(err=>{
+                console.log(err)
+            })
+        },
+        initAddTodo:(state,action) => {
+            state.value.push(action.payload)
+        },
+        removeTodo: (state, action) => {
+            state.value = state.value.filter(todo => todo.id !== action.payload);
+            fetch("http://localhost:3001/tasks/removeTask/"+action.payload, {
+                method: "DELETE",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":"123456"
+                },
+            }).catch(err=>{
+                console.log(err);
+            })
         }
     }
 })
 
-export const {addTodo} = todoSlice.actions;
+export const {addTodo, initAddTodo, removeTodo} = todoSlice.actions;
 export default todoSlice.reducer;
