@@ -25,7 +25,7 @@ function Menu() {
   return (
     <Navbar expand="lg" className="navbar navbar-dark bg-dark">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">Todo List</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse >
           <Nav>

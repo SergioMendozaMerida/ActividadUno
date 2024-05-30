@@ -9,8 +9,6 @@ import { useSelector } from 'react-redux';
 
 function Formulario(props) {
 
-  const goalValue = useSelector(state => state.goals.value);
-  const todoValue = useSelector(state => state.todo.value)
   const optionValue = useSelector(state => state.option.value);
   let idAsignada = 0;
   const inputRefName = useRef();

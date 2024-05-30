@@ -3,14 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const goalsSlice = createSlice({
     name:'goals',
     initialState:{
-        value: [
-            {
-                'id': 1,
-                'name':'Correr',
-                'description':'Salir a correr por la tarde',
-                'dueDate':'24-4-24'
-            },
-        ]
+        value: []
     },
     reducers:{
         addGoal: (state, action) => {
